@@ -214,11 +214,20 @@
         "outbound": "direct"
       },
       {
+        "domain_regex": "^derp.*\\.tailscale\\.com$",
+        "outbound": "direct"
+      },
+      {
         "ip_is_private": true,
         "outbound": "direct"
       },
       {
         "rule_set": "custom-fullport",
+        "outbound": "全端口"
+      },
+      {
+        "domain": ["matsuri.imoutofu.me"],
+        "ip_cidr": ["99.225.216.87/32"],
         "outbound": "全端口"
       },
       {

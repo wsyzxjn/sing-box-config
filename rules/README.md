@@ -11,8 +11,8 @@ needed for adding a domain.
 | `custom-proxy.json` | `其他` | Extra foreign domains |
 | `custom-fullport.json` | `全端口` | Destinations that need nodes without dest-port filters |
 
-Replace `example.invalid` with real hosts. Empty `domain` arrays may fail to
-parse; keep a dummy or a real name.
+`custom-fullport.json` already includes `matsuri.imoutofu.me` and
+`99.225.216.87/32`. `custom-proxy.json` is empty until you add hosts.
 
 Headless rule fields: `domain`, `domain_suffix`, `domain_keyword`,
 `domain_regex`, `ip_cidr`. See [source format](https://sing-box.sagernet.org/configuration/rule-set/source-format/).

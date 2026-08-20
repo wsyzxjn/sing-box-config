@@ -2,7 +2,8 @@
   "version": 3,
   "rules": [
     {
-      "domain": ["example.invalid"]
+      "domain": ["matsuri.imoutofu.me"],
+      "ip_cidr": ["99.225.216.87/32"]
     }
   ]
 }
