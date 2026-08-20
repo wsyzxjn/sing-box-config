@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_regex": ["^derp.*\\.tailscale\\.com$"]
+    },
+    {
+      "domain_suffix": ["lan", "local"]
+    },
+    {
+      "domain": ["push.apple.com"]
+    }
+  ]
+}

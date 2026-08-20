@@ -1,0 +1,472 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "ali",
+        "type": "https",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "ali-tls",
+        "type": "tls",
+        "server": "223.6.6.6"
+      },
+      {
+        "tag": "google",
+        "type": "https",
+        "server": "8.8.8.8",
+        "detour": "其他"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": ["cn_domain", "custom-direct"],
+        "server": "ali"
+      }
+    ],
+    "final": "google",
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "singtun0",
+      "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
+      "mtu": 1500,
+      "stack": "system",
+      "auto_route": true,
+      "auto_redirect": true,
+      "strict_route": false
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "自动选择",
+      "type": "urltest",
+      "outbounds": ["香港", "台湾", "日本", "新加坡", "美国"],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "手动选择",
+      "type": "selector",
+      "outbounds": []
+    },
+    {
+      "tag": "全端口",
+      "type": "selector",
+      "outbounds": []
+    },
+    {
+      "tag": "Google",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "AI Suite",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "Telegram",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "Twitter",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "哔哩哔哩",
+      "type": "selector",
+      "outbounds": ["direct", "自动选择", "手动选择", "香港", "台湾", "日本", "新加坡", "美国", "其它地区"],
+      "default": "direct"
+    },
+    {
+      "tag": "巴哈姆特",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "YouTube",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "NETFLIX",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "Spotify",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "Github",
+      "type": "selector",
+      "outbounds": ["自动选择", "手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "direct"],
+      "default": "自动选择"
+    },
+    {
+      "tag": "国内",
+      "type": "selector",
+      "outbounds": ["direct", "手动选择", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "自动选择"],
+      "default": "direct"
+    },
+    {
+      "tag": "其他",
+      "type": "selector",
+      "outbounds": ["手动选择", "全端口", "香港", "台湾", "日本", "新加坡", "美国", "其它地区", "自动选择", "direct"],
+      "default": "手动选择"
+    },
+    {
+      "tag": "香港",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "台湾",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "日本",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "美国",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "新加坡",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "其它地区",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "1m",
+      "tolerance": 30
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "default_domain_resolver": {
+      "server": "ali"
+    },
+    "rules": [
+      {
+        "action": "sniff",
+        "timeout": "500ms"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": "custom-direct",
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "custom-fullport",
+        "outbound": "全端口"
+      },
+      {
+        "rule_set": "ai_suite",
+        "outbound": "AI Suite"
+      },
+      {
+        "rule_set": "github_domain",
+        "outbound": "Github"
+      },
+      {
+        "rule_set": "twitter_domain",
+        "outbound": "Twitter"
+      },
+      {
+        "rule_set": "youtube_domain",
+        "outbound": "YouTube"
+      },
+      {
+        "rule_set": "google_domain",
+        "outbound": "Google"
+      },
+      {
+        "rule_set": "telegram_domain",
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": "netflix_domain",
+        "outbound": "NETFLIX"
+      },
+      {
+        "rule_set": "bilibili_domain",
+        "outbound": "哔哩哔哩"
+      },
+      {
+        "rule_set": "bahamut_domain",
+        "outbound": "巴哈姆特"
+      },
+      {
+        "rule_set": "spotify_domain",
+        "outbound": "Spotify"
+      },
+      {
+        "rule_set": "cn_domain",
+        "outbound": "国内"
+      },
+      {
+        "rule_set": "custom-proxy",
+        "outbound": "其他"
+      },
+      {
+        "rule_set": "geolocation-not-cn",
+        "outbound": "其他"
+      },
+      {
+        "rule_set": "google_ip",
+        "outbound": "Google"
+      },
+      {
+        "rule_set": "netflix_ip",
+        "outbound": "NETFLIX"
+      },
+      {
+        "rule_set": "telegram_ip",
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": "twitter_ip",
+        "outbound": "Twitter"
+      },
+      {
+        "rule_set": "cn_ip",
+        "outbound": "国内"
+      }
+    ],
+    "final": "其他",
+    "rule_set": [
+      {
+        "tag": "custom-direct",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/wsyzxjn/sing-box-config/refs/heads/main/rules/custom-direct.json",
+        "download_detour": "direct",
+        "update_interval": "1h"
+      },
+      {
+        "tag": "custom-proxy",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/wsyzxjn/sing-box-config/refs/heads/main/rules/custom-proxy.json",
+        "download_detour": "direct",
+        "update_interval": "1h"
+      },
+      {
+        "tag": "custom-fullport",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/wsyzxjn/sing-box-config/refs/heads/main/rules/custom-fullport.json",
+        "download_detour": "direct",
+        "update_interval": "1h"
+      },
+      {
+        "tag": "ai_suite",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-%21cn.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "github_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "twitter_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitter.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "youtube_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "google_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "telegram_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "netflix_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "bilibili_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bilibili.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "bahamut_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bahamut.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "spotify_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/spotify.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "cn_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "geolocation-not-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-%21cn.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "google_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "netflix_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "telegram_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "twitter_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/twitter.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "cn_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "download_detour": "direct",
+        "update_interval": "24h"
+      }
+    ]
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct"
+    },
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}
