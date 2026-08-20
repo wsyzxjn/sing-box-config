@@ -3,7 +3,8 @@
 //   type=1 or col → collection; otherwise a single subscription
 //   name → Sub-Store collection/subscription name
 
-const { type, name } = $arguments;
+const type = ($arguments && $arguments.type) || "1";
+const name = ($arguments && $arguments.name) || "Me";
 const compatible = { tag: "COMPATIBLE", type: "direct" };
 
 const REGION_FILTERS = [
@@ -19,7 +20,8 @@ const OTHER_REGION =
 
 const LOCATIONS = ["香港", "台湾", "日本", "韩国", "美国", "新加坡"];
 
-let config = JSON.parse($files[0]);
+const raw = $files && $files[0] != null ? $files[0] : $content;
+let config = typeof raw === "string" ? JSON.parse(raw) : raw;
 let proxies = await produceArtifact({
   name,
   type: /^1$|col/i.test(type) ? "collection" : "subscription",
