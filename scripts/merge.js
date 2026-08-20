@@ -1,5 +1,5 @@
 // Sub-Store file script: splice collection/subscription nodes into the JSON template.
-// Link: …/scripts/merge.js#type=1&name=Me
+// Link: .../scripts/merge.js#type=1&name=Me
 //   type=1 or col → collection; otherwise a single subscription
 //   name → Sub-Store collection/subscription name
 
