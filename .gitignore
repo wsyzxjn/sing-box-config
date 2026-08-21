@@ -1,3 +1,5 @@
 .DS_Store
 *.srs
 /generated/
+panel/web/node_modules/
+panel/web/dist/
