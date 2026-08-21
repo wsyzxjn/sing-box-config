@@ -15,3 +15,7 @@ if command -v service >/dev/null 2>&1; then
 else
   /etc/init.d/sing-box reload || /etc/init.d/sing-box restart
 fi
+# 1.12 auto_redirect recreates :53 DNAT; LAN DNS stays on AGH → mosdns.
+if [ -x /etc/sing-box/unhijack-dns.sh ]; then
+  /etc/sing-box/unhijack-dns.sh
+fi

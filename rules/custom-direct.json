@@ -8,7 +8,7 @@
       "domain_suffix": ["lan", "local"]
     },
     {
-      "domain": ["push.apple.com"]
+      "domain": ["push.apple.com", "dq.amatsuka.cn"]
     }
   ]
 }

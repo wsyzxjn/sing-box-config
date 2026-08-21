@@ -55,6 +55,16 @@ sh update-openwrt.sh
 
 面板：`http://<路由>:9090`（metacubexd）。`9090` / `7890` 绑了 `0.0.0.0`，用防火墙限制只允许 LAN。
 
+## DNS
+
+LAN 继续走原来的嵌套，不让 sing-box 劫持 53：
+
+```
+客户端 → AdGuardHome :53 → mosdns :5335
+```
+
+sing-box 1.12 的 `auto_redirect` 会给 `:53` 装 nft DNAT。模板里已经去掉 `hijack-dns`；路由上还要在启动后跑 `scripts/unhijack-dns.sh`（拷到 `/etc/sing-box/unhijack-dns.sh`，并由 init 的 `service_started` 调用）。1.14+ 可改用 tun `dns_mode: disabled`。
+
 ## 热更新规则
 
 编辑 `rules/custom-fullport.json` 例如：

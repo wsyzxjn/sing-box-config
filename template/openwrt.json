@@ -206,10 +206,6 @@
         "timeout": "500ms"
       },
       {
-        "protocol": "dns",
-        "action": "hijack-dns"
-      },
-      {
         "rule_set": "custom-direct",
         "outbound": "direct"
       },
