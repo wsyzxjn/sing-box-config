@@ -3,3 +3,6 @@
 /generated/
 panel/web/node_modules/
 panel/web/dist/
+
+sidecar built binary excluded
+panel/sidecar/sb-panel-sidecar
