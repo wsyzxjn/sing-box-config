@@ -29,7 +29,6 @@
       }
     ],
     "final": "google",
-    "independent_cache": true,
     "strategy": "prefer_ipv4"
   },
   "inbounds": [
@@ -42,7 +41,8 @@
       "stack": "system",
       "auto_route": true,
       "auto_redirect": true,
-      "strict_route": false
+      "strict_route": false,
+      "dns_mode": "disabled"
     },
     {
       "type": "mixed",
@@ -462,6 +462,20 @@
       }
     ]
   },
+  "services": [
+    {
+      "type": "api",
+      "tag": "api",
+      "listen": "0.0.0.0",
+      "listen_port": 9095,
+      "access_control_allow_origin": ["*"],
+      "access_control_allow_private_network": true,
+      "dashboard": {
+        "enabled": true,
+        "path": "/usr/share/sing-box/dashboard"
+      }
+    }
+  ],
   "experimental": {
     "clash_api": {
       "external_controller": "0.0.0.0:9090",

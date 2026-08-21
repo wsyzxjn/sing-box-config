@@ -53,7 +53,14 @@ sh update-openwrt.sh
 
 自定义规则靠 sing-box 自己的 `update_interval: 1h`，不用每次 wget 模板。
 
-面板：`http://<路由>:9090`（metacubexd）。`9090` / `7890` 绑了 `0.0.0.0`，用防火墙限制只允许 LAN。
+内核用官方 GitHub 的 OpenWrt ipk（ImmortalWrt 24.10 软件源锁在 1.12）。1.14+ 才有原生 API / 官方面板。
+
+面板：
+
+- 官方：`http://<路由>:9095/dashboard/`（sing-box-dashboard，1.14 API）
+- Clash 兼容：`http://<路由>:9090/ui`（metacubexd）
+
+`9090` / `9095` / `7890` 绑了 `0.0.0.0`，用防火墙限制只允许 LAN。
 
 ## DNS
 
@@ -63,7 +70,7 @@ LAN 继续走原来的嵌套，不让 sing-box 劫持 53：
 客户端 → AdGuardHome :53 → mosdns :5335
 ```
 
-sing-box 1.12 的 `auto_redirect` 会给 `:53` 装 nft DNAT。模板里已经去掉 `hijack-dns`；路由上还要在启动后跑 `scripts/unhijack-dns.sh`（拷到 `/etc/sing-box/unhijack-dns.sh`，并由 init 的 `service_started` 调用）。1.14+ 可改用 tun `dns_mode: disabled`。
+1.14 模板里 tun 已设 `dns_mode: disabled`，不再劫持 LAN 53。1.12 的 `auto_redirect` 仍会给 `:53` 装 nft DNAT，那时要跑 `scripts/unhijack-dns.sh`。
 
 ## 热更新规则
 
