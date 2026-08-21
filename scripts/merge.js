@@ -33,7 +33,14 @@ config.outbounds.push(...proxies);
 
 const allTags = tagsOf(proxies);
 fill("手动选择", allTags);
-fill("全端口", allTags);
+// Nodes whose entry host is known to allow high dest ports (not a vendor label).
+const FULLPORT_HOST = /v51124-4\.qpon$|rtysjur\.quest$/i;
+fill(
+  "全端口",
+  proxies
+    .filter((p) => FULLPORT_HOST.test(String(p.server || "")))
+    .map((p) => p.tag),
+);
 fill("香港", tagsOf(proxies, REGION_FILTERS[0][1]));
 fill("台湾", tagsOf(proxies, REGION_FILTERS[1][1]));
 fill("日本", tagsOf(proxies, REGION_FILTERS[2][1]));
